@@ -15,7 +15,6 @@ class PropertyListPresenter @Inject constructor(
 
     private lateinit var propertyView: PropertyListContract.PropertyView
 
-    //    private lateinit var propertyListApi: PropertyListApi
     @VisibleForTesting
     val compositeDisposable = CompositeDisposable()
 
@@ -57,7 +56,6 @@ class PropertyListPresenter @Inject constructor(
         val list: MutableList<Double> = mutableListOf()
         val map = propertyDetailsList.map { p -> p.price }
         map.toCollection(list)
-//        Log.d(">>>","Avg :"+list.average())
         return list.average().toBigDecimal()
 
     }

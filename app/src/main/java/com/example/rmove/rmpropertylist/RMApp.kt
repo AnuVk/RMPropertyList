@@ -8,14 +8,11 @@ import com.example.rmove.rmpropertylist.di.component.DaggerApplicationComponent
 import com.example.rmove.rmpropertylist.di.module.ApplicationModule
 
 class RMApp : MultiDexApplication() {
-    //    lateinit var appComponent: ApplicationComponent
     lateinit var appModule: ApplicationModule
 
     companion object {
         lateinit var instance: RMApp private set
         lateinit var appComponent: ApplicationComponent
-        lateinit var appModule: ApplicationModule
-
     }
 
     override fun onCreate() {
@@ -39,8 +36,4 @@ class RMApp : MultiDexApplication() {
             .build()
         appComponent.inject(this)
     }
-
-//    public fun getApplicationComponent() : ApplicationComponent {
-//        return appComponent
-//    }
 }
