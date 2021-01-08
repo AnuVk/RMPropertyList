@@ -1,0 +1,2 @@
+rootProject.name = "RMPropertyList"
+include ':app'

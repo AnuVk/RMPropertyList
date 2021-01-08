@@ -1,0 +1,81 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "com.example.rmove.rmpropertylist"
+        minSdkVersion 16
+        targetSdkVersion 29
+        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    testOptions {
+        animationsDisabled = true
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField "String", "BASE_URL", '"http://127.0.0.1:8080"'
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$project.kotlinVersion"
+    implementation "androidx.core:core-ktx:$project.ktxCoreVersion"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "com.google.android.material:material:$project.materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$project.constraintLayoutVersion"
+    implementation "androidx.multidex:multidex:$project.multiDexVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$project.okHttpVersion"
+
+    implementation "com.google.dagger:dagger:$project.daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$project.daggerVersion"
+    implementation "com.google.code.gson:gson:$project.gsonVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$project.gsonconvertorVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$project.gsonSerializable"
+    kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$project.daggerVersion"
+    implementation "com.jakewharton:butterknife:$project.butterknifeVersion"
+    kapt "com.jakewharton:butterknife-compiler:$project.butterknifeVersion"
+
+    testImplementation "junit:junit:$project.junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$project.junitExtVersion"
+    androidTestImplementation "androidx.test:rules:$project.testRulesVersion"
+    androidTestImplementation "androidx.test.ext:truth:$project.testTruthVersion"
+    androidTestImplementation "androidx.test:runner:$project.testRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$project.espressoCoreVersion"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$project.mockWebServerVersion"
+    androidTestImplementation "org.mockito:mockito-core:$project.mockitoversion"
+    testImplementation "org.mockito:mockito-inline:$project.mockitoversion"
+
+}

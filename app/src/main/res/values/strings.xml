@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RMPropertyList</string>
+    <string name="answer_text">Loading answer here..</string>
+    <string name="calculate_average_question_text">Calculate the average property price from API response</string>
+</resources>
