@@ -1,5 +1,7 @@
 package com.example.rmove.rmpropertylist.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
 import com.example.rmove.rmpropertylist.api.PropertyListApi
 import com.example.rmove.rmpropertylist.model.PropertyDetails
@@ -22,6 +24,7 @@ class PropertyListPresenter @Inject constructor(
         propertyView = view
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun getPropertyList() {
         propertyView.showProgress()
         compositeDisposable.add(
@@ -42,6 +45,7 @@ class PropertyListPresenter @Inject constructor(
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun onSuccess(propertyDetailsList: List<PropertyDetails>) {
         propertyView.hideProgress()
         if (propertyDetailsList.isEmpty()) {
@@ -49,6 +53,11 @@ class PropertyListPresenter @Inject constructor(
         } else {
             val average = calculateAverage(propertyDetailsList)
             propertyView.populateAverage(average.toString())
+            //calculate avg property pricer for detached
+            val calculateAverageForDetached = calculateAverageForDetached(propertyDetailsList)
+            val calculateAverage = calculateAverage(calculateAverageForDetached)
+            propertyView.populateDetachedAverage(calculateAverage.toString())
+            // propview.avgfordetached(123)
         }
     }
 
@@ -58,5 +67,10 @@ class PropertyListPresenter @Inject constructor(
         map.toCollection(list)
         return list.average().toBigDecimal()
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+     fun calculateAverageForDetached(propertyDetailsList: List<PropertyDetails>):List<PropertyDetails> {
+        return propertyDetailsList.filter { it.propertyType == "DETACHED" }
     }
 }

@@ -74,4 +74,8 @@ class PropertyActivity : AppCompatActivity(), PropertyListContract.PropertyView 
     override fun populateAverage(average: String) {
         answerTv.text = average
     }
+
+    override fun populateDetachedAverage(average: String) {
+        TODO("Not yet implemented")
+    }
 }

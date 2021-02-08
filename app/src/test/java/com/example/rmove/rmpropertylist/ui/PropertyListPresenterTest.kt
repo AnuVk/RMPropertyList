@@ -71,6 +71,19 @@ class PropertyListPresenterTest {
     }
 
     @Test
+    fun `given ApiReturnsValidList Then view must be populatedWithAverageDetachedProperty`() {
+        val mockPropertyData = mockFivePropertyData()
+        `when`(mockPropertyListApi.getPropertyDetails()).thenReturn(
+            Observable.just(mockPropertyData)
+        )
+        mockPresenter.getPropertyList()
+
+        testScheduler.advanceTimeBy(1, TimeUnit.SECONDS);
+
+        verify(mockView).populateDetachedAverage(anyString())
+    }
+
+    @Test
     fun `given ApiCallFails Then Error message method is called`() {
         `when`(mockPropertyListApi.getPropertyDetails()).thenReturn(
             Observable.error(IOException("test"))
@@ -110,7 +123,7 @@ class PropertyListPresenterTest {
                     "london",
                     "w21as",
                     "paddington",
-                    "detached"
+                    "Detached"
                 ),
                 PropertyDetails(
                     2,
@@ -121,7 +134,7 @@ class PropertyListPresenterTest {
                     "london",
                     "w21as",
                     "paddington",
-                    "detached"
+                    "Semi detached"
                 )
             )
         )
@@ -139,7 +152,7 @@ class PropertyListPresenterTest {
                     "london",
                     "w21as",
                     "paddington",
-                    "detached"
+                    "DETACHED"
                 ),
                 PropertyDetails(
                     2,
@@ -172,7 +185,7 @@ class PropertyListPresenterTest {
                     "london",
                     "w21as",
                     "paddington",
-                    "detached"
+                    "DETACHED"
                 ),
                 PropertyDetails(
                     5,

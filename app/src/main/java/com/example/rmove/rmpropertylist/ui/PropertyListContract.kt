@@ -9,6 +9,7 @@ class PropertyListContract {
         fun hideProgress()
         fun showErrorMessage(errorMessage: String)
         fun populateAverage(average: String)
+        fun populateDetachedAverage(average: String)
     }
 
     interface PropertyListPresenter {
