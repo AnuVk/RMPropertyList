@@ -65,8 +65,8 @@ class PropertyListPresenter @Inject constructor(
         val list: MutableList<Double> = mutableListOf()
         val map = propertyDetailsList.map { p -> p.price }
         map.toCollection(list)
-        return list.average().toBigDecimal()
 
+        return list.average().toBigDecimal()
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

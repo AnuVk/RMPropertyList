@@ -66,7 +66,6 @@ class PropertyListPresenterTest {
 
         testScheduler.advanceTimeBy(1, TimeUnit.SECONDS);
 
-        verify(mockView, times(1)).hideProgress()
         verify(mockView).populateAverage(anyString())
     }
 

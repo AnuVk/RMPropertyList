@@ -30,6 +30,10 @@ class PropertyActivity : AppCompatActivity(), PropertyListContract.PropertyView 
     internal lateinit var answerTv: TextView
 
     @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.detached_avg_tv)
+    internal lateinit var detachedAvgTv: TextView
+
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.property_main_layout)
     internal lateinit var mainPropertyLayout: ConstraintLayout
 
@@ -76,6 +80,7 @@ class PropertyActivity : AppCompatActivity(), PropertyListContract.PropertyView 
     }
 
     override fun populateDetachedAverage(average: String) {
-        TODO("Not yet implemented")
+        detachedAvgTv.text = average
     }
+
 }
