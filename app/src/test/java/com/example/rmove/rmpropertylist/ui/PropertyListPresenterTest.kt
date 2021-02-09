@@ -57,7 +57,7 @@ class PropertyListPresenterTest {
     }
 
     @Test
-    fun `given ApiReturnsValidList Then view must be populated`() {
+    fun `given ApiReturnsValidList Then view must be populated for average`() {
         val mockPropertyData = mockTwoPropertyData()
         `when`(mockPropertyListApi.getPropertyDetails()).thenReturn(
             Observable.just(mockPropertyData)

@@ -44,7 +44,6 @@ class PropertyListPresenter @Inject constructor(
         propertyView.showErrorMessage(throwable.message.toString())
     }
 
-
     @RequiresApi(Build.VERSION_CODES.N)
     private fun onSuccess(propertyDetailsList: List<PropertyDetails>) {
         propertyView.hideProgress()
@@ -52,12 +51,14 @@ class PropertyListPresenter @Inject constructor(
             propertyView.showErrorMessage("No property data retrieved")
         } else {
             val average = calculateAverage(propertyDetailsList)
+
             propertyView.populateAverage(average.toString())
-            //calculate avg property pricer for detached
-            val calculateAverageForDetached = calculateAverageForDetached(propertyDetailsList)
-            val calculateAverage = calculateAverage(calculateAverageForDetached)
+
+            //calculate avg property price for detached
+            val listOfDetachedProperty = getListOfDetachedProperties(propertyDetailsList)
+            val calculateAverage = calculateAverage(listOfDetachedProperty)
+
             propertyView.populateDetachedAverage(calculateAverage.toString())
-            // propview.avgfordetached(123)
         }
     }
 
@@ -70,7 +71,7 @@ class PropertyListPresenter @Inject constructor(
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-     fun calculateAverageForDetached(propertyDetailsList: List<PropertyDetails>):List<PropertyDetails> {
+     fun getListOfDetachedProperties(propertyDetailsList: List<PropertyDetails>):List<PropertyDetails> {
         return propertyDetailsList.filter { it.propertyType == "DETACHED" }
     }
 }
