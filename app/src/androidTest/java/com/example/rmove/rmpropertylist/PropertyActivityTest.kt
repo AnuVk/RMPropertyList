@@ -62,6 +62,17 @@ class PropertyActivityTest {
         onView(withText("410280.77777777775")).check(matches(isDisplayed()))
     }
 
+    @Test
+    fun `givenIHaveValidListOfProperties_then_DetachedPropertyAverageIsCalculatedIsDisplayed`() {
+        onView(withText("Calculate the average property price from API response")).check(
+                matches(
+                        isDisplayed()
+                )
+        )
+        onView(isRoot()).perform(waitUntilViewInvisible(R.id.progess_bar, 5000))
+        onView(withText("505520.75")).check(matches(isDisplayed()))
+    }
+
     inner class WaitUntilViewInvisible(private val viewId: Int, private val timeout: Long) :
         ViewAction {
         override fun getConstraints(): Matcher<View> {
