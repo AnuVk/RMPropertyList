@@ -7,6 +7,8 @@ import com.example.rmove.rmpropertylist.api.PropertyListApi
 import com.example.rmove.rmpropertylist.model.PropertyDetails
 import com.example.rmove.rmpropertylist.utils.SchedulerHelper
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -36,6 +38,15 @@ class PropertyListPresenter @Inject constructor(
                     { error -> onFailure(error) },
                     { println("Completed!") }
                 ))
+    }
+
+    override suspend fun getPropertyListByCo() =
+        withContext(Dispatchers.Default){
+            val pList = propertyListApi.getPropertyDetailsByCo().await()
+            if(pList.properties.isNotEmpty()){
+                propertyView.hideProgress()
+                propertyView.
+            }
     }
 
 
