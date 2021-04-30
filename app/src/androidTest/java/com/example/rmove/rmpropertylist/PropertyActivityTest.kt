@@ -59,7 +59,7 @@ class PropertyActivityTest {
             )
         )
         onView(isRoot()).perform(waitUntilViewInvisible(R.id.progess_bar, 5000))
-        onView(withText("410280.77777777775")).check(matches(isDisplayed()))
+        onView(withText("All property average : 410280.77777777775")).check(matches(isDisplayed()))
     }
 
     @Test
@@ -70,7 +70,7 @@ class PropertyActivityTest {
                 )
         )
         onView(isRoot()).perform(waitUntilViewInvisible(R.id.progess_bar, 5000))
-        onView(withText("505520.75")).check(matches(isDisplayed()))
+        onView(withText("All detached property average : 505520.75")).check(matches(isDisplayed()))
     }
 
     inner class WaitUntilViewInvisible(private val viewId: Int, private val timeout: Long) :

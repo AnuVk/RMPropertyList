@@ -10,4 +10,7 @@ interface PropertyListApi {
     @GET("master/properties.json")
     fun getPropertyDetails(): Observable<PropertyList>
 
+    @GET("master/properties.json")
+    suspend fun getPropertyDetailsByCo(): PropertyList
+
 }

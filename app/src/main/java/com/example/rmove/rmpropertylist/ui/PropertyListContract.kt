@@ -15,6 +15,7 @@ class PropertyListContract {
     interface PropertyListPresenter {
         fun initialise(view: PropertyView)
         fun getPropertyList()
+        suspend fun getPropertyListByCo()
         fun calculateAverage(propertyDetailsList: List<PropertyDetails>): BigDecimal
 
     }
