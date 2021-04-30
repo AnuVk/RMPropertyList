@@ -14,6 +14,9 @@ import com.example.rmove.rmpropertylist.RMApp
 import com.example.rmove.rmpropertylist.di.component.DaggerActivityComponent
 import com.example.rmove.rmpropertylist.di.module.ActivityModule
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PropertyActivity : AppCompatActivity(), PropertyListContract.PropertyView {
@@ -50,7 +53,10 @@ class PropertyActivity : AppCompatActivity(), PropertyListContract.PropertyView 
         ButterKnife.bind(this)
 
         presenter.initialise(this)
-        presenter.getPropertyList()
+        CoroutineScope(Dispatchers.IO).launch {
+            presenter.getPropertyListByCo()
+        }
+
     }
 
     fun injectDependency() {
@@ -76,11 +82,11 @@ class PropertyActivity : AppCompatActivity(), PropertyListContract.PropertyView 
     }
 
     override fun populateAverage(average: String) {
-        answerTv.text = average
+        answerTv.text = "All property average : $average"
     }
 
     override fun populateDetachedAverage(average: String) {
-        detachedAvgTv.text = average
+        detachedAvgTv.text = "All detached property average : $average"
     }
 
 }
