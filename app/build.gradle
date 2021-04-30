@@ -76,8 +76,10 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$project.espressoCoreVersion"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$project.mockWebServerVersion"
     androidTestImplementation "org.mockito:mockito-core:$project.mockitoversion"
-    testImplementation "org.mockito:mockito-inline:$project.mockitoversion"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$project.kotlinCoroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$project.kotlinCoroutineVersion"
+
+    testImplementation "org.mockito:mockito-inline:$project.mockitoversion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$project.kotlinCoroutineTestVersion"
 }

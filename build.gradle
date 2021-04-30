@@ -17,12 +17,14 @@ buildscript {
         rxKotlinVersion = "2.4.0"
         rxAndroidVersion = "2.1.1"
         //testing versions
-        junitVersion = "4.13.1"
+        junitVersion = "4.13.2"
         junitExtVersion = "1.1.2"
         mockversion = "1.10.0"
         mockitoversion = "3.3.3"
         testRunnerVersion = "1.3.0"
         espressoCoreVersion = "3.3.0"
+        kotlinCoroutineVersion = "1.4.3"
+        kotlinCoroutineTestVersion = "1.4.1"
         testRulesVersion = "1.3.0"
         testTruthVersion = "1.3.0"
         mockWebServerVersion = "4.3.0"
@@ -32,7 +34,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0-alpha11"
+        classpath 'com.android.tools.build:gradle:7.0.0-alpha14'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$project.kotlinVersion"
         classpath "com.jakewharton:butterknife-gradle-plugin:$project.butterknifeVersion"
 
