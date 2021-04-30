@@ -7,8 +7,9 @@ import com.example.rmove.rmpropertylist.api.PropertyListApi
 import com.example.rmove.rmpropertylist.model.PropertyDetails
 import com.example.rmove.rmpropertylist.utils.SchedulerHelper
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -40,13 +41,25 @@ class PropertyListPresenter @Inject constructor(
                 ))
     }
 
-    override suspend fun getPropertyListByCo() =
-        withContext(Dispatchers.Default){
-            val pList = propertyListApi.getPropertyDetailsByCo().await()
-            if(pList.properties.isNotEmpty()){
+    @RequiresApi(Build.VERSION_CODES.N)
+    override suspend fun getPropertyListByCo() {
+        CoroutineScope(Main).launch {
+            val pList = async(IO) { propertyListApi.getPropertyDetailsByCo()  }
+            if(pList.await().properties.isNotEmpty()){
+                val propertyDetailsList = pList.await().properties
                 propertyView.hideProgress()
-                propertyView.
+                val average = calculateAverage(propertyDetailsList)
+
+                propertyView.populateAverage(average.toString())
+
+                //calculate avg property price for detached
+                val listOfDetachedProperty = getListOfDetachedProperties(propertyDetailsList)
+                val calculateAverage = calculateAverage(listOfDetachedProperty)
+
+                propertyView.populateDetachedAverage(calculateAverage.toString())
+
             }
+        }
     }
 
 

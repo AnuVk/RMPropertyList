@@ -6,6 +6,13 @@ import com.example.rmove.rmpropertylist.model.PropertyList
 import com.example.rmove.rmpropertylist.utils.SchedulerHelper
 import io.reactivex.Observable
 import io.reactivex.schedulers.TestScheduler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -28,6 +35,8 @@ class PropertyListPresenterTest {
 
     lateinit var mockPresenter: PropertyListContract.PropertyListPresenter
     lateinit var testScheduler: TestScheduler
+    @ExperimentalCoroutinesApi
+    private val testDispatcher = TestCoroutineDispatcher()
 
     @Before
     fun setUp() {
@@ -35,10 +44,17 @@ class PropertyListPresenterTest {
         mockPresenter = PropertyListPresenter(mockPropertyListApi, mockSchedulerHelper)
         mockPresenter.initialise(mockView)
         testScheduler = TestScheduler()
+        Dispatchers.setMain(testDispatcher)
         `when`(mockSchedulerHelper.getIoScheduler()).thenReturn(testScheduler)
         `when`(mockSchedulerHelper.getMainThreadScheduler()).thenReturn(testScheduler)
     }
 
+    @ExperimentalCoroutinesApi
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
+    }
 
     @Test
     fun `given ApiReturnsEmptyList Then Error message method is called`() {
@@ -67,6 +83,18 @@ class PropertyListPresenterTest {
         testScheduler.advanceTimeBy(1, TimeUnit.SECONDS);
 
         verify(mockView).populateAverage(anyString())
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `given ApiReturnsValidList Then view must be populated for average using coroutines`() {
+        val mockPropertyData = mockTwoPropertyData()
+        runBlockingTest {
+            `when`(mockPropertyListApi.getPropertyDetailsByCo()).thenReturn(mockPropertyData)
+            mockPresenter.getPropertyListByCo()
+
+            verify(mockView).populateAverage(anyString())
+        }
     }
 
     @Test

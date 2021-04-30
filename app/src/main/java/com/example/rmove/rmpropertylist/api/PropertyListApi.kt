@@ -12,7 +12,7 @@ interface PropertyListApi {
     fun getPropertyDetails(): Observable<PropertyList>
 
     @GET("master/properties.json")
-    suspend fun getPropertyDetailsByCo(): Deferred<PropertyList>
+    suspend fun getPropertyDetailsByCo(): PropertyList
 
 
 }
